@@ -1,0 +1,7 @@
+{
+    "symbol": "LINK_USD",
+    "train_date": "2025-05-19T11:42:22.088573",
+    "model_type": "PPO",
+    "observation_space": "Box(-inf, inf, (266,), float32)",
+    "action_space": "Discrete(3)"
+}

@@ -1,0 +1,13 @@
+2025-05-19 11:42:26,539 - INFO - Logging to models\logs\XRP_USD_train_20250519_114226.log
+2025-05-19 11:42:26,539 - INFO - No config file provided or found, using defaults.
+2025-05-19 11:42:26,539 - INFO - Loading data for XRP_USD from data
+2025-05-19 11:42:26,581 - INFO - Data shape: (16529, 5)
+2025-05-19 11:42:26,581 - INFO - Data columns: ['close', 'high', 'low', 'open', 'volume']
+2025-05-19 11:42:26,585 - INFO - Data sample: 
+                              close      high       low      open  volume
+datetime                                                                 
+2023-06-16 20:00:00+00:00  0.473593  0.473600  0.471441  0.472382     0.0
+2023-06-16 21:00:00+00:00  0.471347  0.473580  0.470129  0.473580     0.0
+2023-06-16 22:00:00+00:00  0.472923  0.473134  0.471314  0.471314     0.0
+2025-05-19 11:42:27,787 - INFO - Starting training for XRP_USD for 100000 timesteps
+2025-05-19 12:06:51,088 - INFO - Training completed for XRP_USD

@@ -1,0 +1,7 @@
+{
+    "symbol": "BTC_USD",
+    "train_date": "2025-05-19T10:23:27.883018",
+    "model_type": "PPO",
+    "observation_space": "Box(-inf, inf, (266,), float32)",
+    "action_space": "Discrete(3)"
+}

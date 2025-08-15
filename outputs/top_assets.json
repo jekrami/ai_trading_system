@@ -1,0 +1,64 @@
+{
+    "selection_date": "2025-08-15T22:28:33.892072",
+    "selected_assets": [
+        "BTC_USD",
+        "ETH_USD",
+        "SOL_USD",
+        "LINK_USD",
+        "XRP_USD"
+    ],
+    "metrics": {
+        "BTC_USD": {
+            "volume": 49353345081597.766,
+            "volatility": 0.01799746221094721,
+            "trend_strength": 0.9408201927038781,
+            "liquidity": 0.9954556720572894,
+            "market_cap": 49832202226570.59,
+            "current_price": 103780.7109375,
+            "current_market_cap": 160083908580864.0
+        },
+        "ETH_USD": {
+            "volume": 815553164001.7493,
+            "volatility": 0.0362930269272644,
+            "trend_strength": 0.8803365203392499,
+            "liquidity": 0.9910088624818181,
+            "market_cap": 840206987852.0405,
+            "current_price": 2587.671630859375,
+            "current_market_cap": 9475407298146.0
+        },
+        "SOL_USD": {
+            "volume": 6365689161.85083,
+            "volatility": 0.03529991731264757,
+            "trend_strength": 0.8529485761128769,
+            "liquidity": 0.991388956550857,
+            "market_cap": 6507562077.210046,
+            "current_price": 172.50709533691406,
+            "current_market_cap": 571100609.765625
+        },
+        "LINK_USD": {
+            "volume": 57903865.62830587,
+            "volatility": 0.03816390258857711,
+            "trend_strength": 0.8022673301360488,
+            "liquidity": 0.9905372924343167,
+            "market_cap": 59956987.216824874,
+            "current_price": 16.20574951171875,
+            "current_market_cap": 8813853.3984375
+        },
+        "XRP_USD": {
+            "volume": 102295980.3083096,
+            "volatility": 0.03239168775154717,
+            "trend_strength": 0.789165863635028,
+            "liquidity": 0.9921913294600957,
+            "market_cap": 105865806.91223556,
+            "current_price": 2.429900646209717,
+            "current_market_cap": 2678566.9587402344
+        }
+    },
+    "scores": {
+        "BTC_USD": 1.1737276302436945,
+        "ETH_USD": -0.033803369769103156,
+        "SOL_USD": -0.11387560795189983,
+        "LINK_USD": -0.2264685941043767,
+        "XRP_USD": -0.27665950566935027
+    }
+}

@@ -1,0 +1,36 @@
+# ====================================
+# Python cache (anywhere in project)
+# ====================================
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# ====================================
+# Virtual environments (anywhere in project)
+# ====================================
+**/.venv/
+**/venv/
+**/env/
+
+# ====================================
+# Distribution / packaging
+# ====================================
+wheelhouse/
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ====================================
+# IDE / Editor files
+# ====================================
+.vscode/
+.idea/
+
+# ====================================
+# OS-generated files
+# ====================================
+.DS_Store
+Thumbs.db
+wheelhouse/
