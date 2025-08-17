@@ -1,6 +1,6 @@
 {
     "symbol": "SOL_USD",
-    "train_date": "2025-05-19T11:16:24.125322",
+    "train_date": "2025-08-17T20:34:51.817819",
     "model_type": "PPO",
     "observation_space": "Box(-inf, inf, (266,), float32)",
     "action_space": "Discrete(3)"

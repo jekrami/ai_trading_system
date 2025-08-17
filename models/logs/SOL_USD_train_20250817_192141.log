@@ -1,0 +1,1313 @@
+INFO:__main__:Logging to models\logs\SOL_USD_train_20250817_192144.log
+INFO:__main__:No config file provided or found, using defaults.
+INFO:__main__:Loading data for SOL_USD from data
+INFO:agents.asset_universe:Loaded filtered data for SOL_USD: 16528 rows
+INFO:__main__:Data shape: (16528, 5)
+INFO:__main__:Data columns: ['close', 'high', 'low', 'open', 'volume']
+INFO:__main__:Data sample: 
+                               close       high        low       open    volume
+datetime                                                                       
+2023-06-16 20:00:00+00:00  15.391171  15.399173  15.227420  15.252854  576704.0
+2023-06-16 21:00:00+00:00  15.303020  15.394573  15.287519  15.391732       0.0
+2023-06-16 22:00:00+00:00  15.327859  15.364041  15.303703  15.303703       0.0
+D:\Work\ai_trading_system\.venv\Lib\site-packages\stable_baselines3\common\vec_env\patch_gym.py:49: UserWarning: You provided an OpenAI Gym environment. We strongly recommend transitioning to Gymnasium environments. Stable-Baselines3 is automatically wrapping your environments in a compatibility layer, which could potentially cause issues.
+  warnings.warn(
+D:\Work\ai_trading_system\.venv\Lib\site-packages\stable_baselines3\common\on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+INFO:__main__:Starting training for SOL_USD for 100000 timesteps
+INFO:agents.ppo_agent:Starting training of SOL_USD agent for 100000 timesteps
+Using cuda device
+Wrapping the env with a `Monitor` wrapper
+Wrapping the env in a DummyVecEnv.
+Logging to models\logs\SOL_USD\SOL_USD_3
+---------------------------------
+| time/              |          |
+|    fps             | 97       |
+|    iterations      | 1        |
+|    time_elapsed    | 21       |
+|    total_timesteps | 2048     |
+| trading/           |          |
+|    daily_return    | 0.0294   |
+|    drawdown        | -0.481   |
+|    max_drawdown    | -0.505   |
+|    portfolio_value | 6.4e+03  |
+|    sharpe_ratio    | -0.551   |
+---------------------------------
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 91          |
+|    iterations           | 2           |
+|    time_elapsed         | 44          |
+|    total_timesteps      | 4096        |
+| trading/                |             |
+|    daily_return         | 0           |
+|    drawdown             | -0.662      |
+|    max_drawdown         | -0.668      |
+|    portfolio_value      | 4.18e+03    |
+|    sharpe_ratio         | -0.448      |
+| train/                  |             |
+|    approx_kl            | 0.010170266 |
+|    clip_fraction        | 0.119       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -1.09       |
+|    explained_variance   | -97.6       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0421     |
+|    n_updates            | 10          |
+|    policy_gradient_loss | -0.00927    |
+|    value_loss           | 0.0549      |
+-----------------------------------------
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 86          |
+|    iterations           | 3           |
+|    time_elapsed         | 71          |
+|    total_timesteps      | 6144        |
+| trading/                |             |
+|    daily_return         | 0           |
+|    drawdown             | -0.781      |
+|    max_drawdown         | -0.823      |
+|    portfolio_value      | 2.71e+03    |
+|    sharpe_ratio         | -0.415      |
+| train/                  |             |
+|    approx_kl            | 0.009900987 |
+|    clip_fraction        | 0.0938      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -1.08       |
+|    explained_variance   | -1.48       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.00899    |
+|    n_updates            | 20          |
+|    policy_gradient_loss | -0.0103     |
+|    value_loss           | 0.0253      |
+-----------------------------------------
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 83          |
+|    iterations           | 4           |
+|    time_elapsed         | 97          |
+|    total_timesteps      | 8192        |
+| trading/                |             |
+|    daily_return         | -0.00823    |
+|    drawdown             | -0.879      |
+|    max_drawdown         | -0.879      |
+|    portfolio_value      | 1.49e+03    |
+|    sharpe_ratio         | -0.421      |
+| train/                  |             |
+|    approx_kl            | 0.008686656 |
+|    clip_fraction        | 0.112       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -1.08       |
+|    explained_variance   | -0.455      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0255     |
+|    n_updates            | 30          |
+|    policy_gradient_loss | -0.0101     |
+|    value_loss           | 0.0143      |
+-----------------------------------------
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 82          |
+|    iterations           | 5           |
+|    time_elapsed         | 124         |
+|    total_timesteps      | 10240       |
+| trading/                |             |
+|    daily_return         | -0.000999   |
+|    drawdown             | -0.931      |
+|    max_drawdown         | -0.936      |
+|    portfolio_value      | 848         |
+|    sharpe_ratio         | -0.452      |
+| train/                  |             |
+|    approx_kl            | 0.011158871 |
+|    clip_fraction        | 0.134       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -1.07       |
+|    explained_variance   | -0.436      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0548     |
+|    n_updates            | 40          |
+|    policy_gradient_loss | -0.0124     |
+|    value_loss           | 0.0105      |
+-----------------------------------------
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 81          |
+|    iterations           | 6           |
+|    time_elapsed         | 150         |
+|    total_timesteps      | 12288       |
+| trading/                |             |
+|    daily_return         | 0           |
+|    drawdown             | -0.949      |
+|    max_drawdown         | -0.964      |
+|    portfolio_value      | 631         |
+|    sharpe_ratio         | -0.435      |
+| train/                  |             |
+|    approx_kl            | 0.011945464 |
+|    clip_fraction        | 0.174       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -1.05       |
+|    explained_variance   | -0.47       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0284     |
+|    n_updates            | 50          |
+|    policy_gradient_loss | -0.0143     |
+|    value_loss           | 0.00666     |
+-----------------------------------------
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 80          |
+|    iterations           | 7           |
+|    time_elapsed         | 177         |
+|    total_timesteps      | 14336       |
+| trading/                |             |
+|    daily_return         | 0.00308     |
+|    drawdown             | -0.956      |
+|    max_drawdown         | -0.964      |
+|    portfolio_value      | 539         |
+|    sharpe_ratio         | -0.371      |
+| train/                  |             |
+|    approx_kl            | 0.011621313 |
+|    clip_fraction        | 0.159       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -1.04       |
+|    explained_variance   | -0.241      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.00742    |
+|    n_updates            | 60          |
+|    policy_gradient_loss | -0.0115     |
+|    value_loss           | 0.00534     |
+-----------------------------------------
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 79          |
+|    iterations           | 8           |
+|    time_elapsed         | 205         |
+|    total_timesteps      | 16384       |
+| trading/                |             |
+|    daily_return         | 0.0038      |
+|    drawdown             | -0.978      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 278         |
+|    sharpe_ratio         | -0.399      |
+| train/                  |             |
+|    approx_kl            | 0.011478915 |
+|    clip_fraction        | 0.114       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -1.02       |
+|    explained_variance   | -0.322      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0518     |
+|    n_updates            | 70          |
+|    policy_gradient_loss | -0.0118     |
+|    value_loss           | 0.00484     |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -3.15       |
+| time/                   |             |
+|    fps                  | 78          |
+|    iterations           | 9           |
+|    time_elapsed         | 235         |
+|    total_timesteps      | 18432       |
+| trading/                |             |
+|    daily_return         | 0           |
+|    drawdown             | -0.441      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 6.91e+03    |
+|    sharpe_ratio         | 0.106       |
+| train/                  |             |
+|    approx_kl            | 0.013635047 |
+|    clip_fraction        | 0.156       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -1.01       |
+|    explained_variance   | -0.0857     |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0115     |
+|    n_updates            | 80          |
+|    policy_gradient_loss | -0.0167     |
+|    value_loss           | 0.00339     |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -3.15       |
+| time/                   |             |
+|    fps                  | 77          |
+|    iterations           | 10          |
+|    time_elapsed         | 264         |
+|    total_timesteps      | 20480       |
+| trading/                |             |
+|    daily_return         | 0.0135      |
+|    drawdown             | -0.245      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 9.66e+03    |
+|    sharpe_ratio         | 0.102       |
+| train/                  |             |
+|    approx_kl            | 0.013649663 |
+|    clip_fraction        | 0.141       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.994      |
+|    explained_variance   | -0.114      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0483     |
+|    n_updates            | 90          |
+|    policy_gradient_loss | -0.014      |
+|    value_loss           | 0.0116      |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -3.15       |
+| time/                   |             |
+|    fps                  | 75          |
+|    iterations           | 11          |
+|    time_elapsed         | 296         |
+|    total_timesteps      | 22528       |
+| trading/                |             |
+|    daily_return         | -0.00251    |
+|    drawdown             | -0.016      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 1.43e+04    |
+|    sharpe_ratio         | 0.0982      |
+| train/                  |             |
+|    approx_kl            | 0.014570946 |
+|    clip_fraction        | 0.167       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.972      |
+|    explained_variance   | -0.584      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0277     |
+|    n_updates            | 100         |
+|    policy_gradient_loss | -0.0168     |
+|    value_loss           | 0.00216     |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -3.15       |
+| time/                   |             |
+|    fps                  | 75          |
+|    iterations           | 12          |
+|    time_elapsed         | 326         |
+|    total_timesteps      | 24576       |
+| trading/                |             |
+|    daily_return         | -0.00402    |
+|    drawdown             | -0.43       |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 1.03e+04    |
+|    sharpe_ratio         | 0.0934      |
+| train/                  |             |
+|    approx_kl            | 0.011866873 |
+|    clip_fraction        | 0.126       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.971      |
+|    explained_variance   | -0.259      |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.0141      |
+|    n_updates            | 110         |
+|    policy_gradient_loss | -0.0164     |
+|    value_loss           | 0.00157     |
+-----------------------------------------
+------------------------------------------
+| rollout/                |              |
+|    ep_len_mean          | 1.65e+04     |
+|    ep_rew_mean          | -3.15        |
+| time/                   |              |
+|    fps                  | 74           |
+|    iterations           | 13           |
+|    time_elapsed         | 356          |
+|    total_timesteps      | 26624        |
+| trading/                |              |
+|    daily_return         | 0.00424      |
+|    drawdown             | -0.617       |
+|    max_drawdown         | -0.981       |
+|    portfolio_value      | 6.91e+03     |
+|    sharpe_ratio         | 0.0888       |
+| train/                  |              |
+|    approx_kl            | 0.0124869365 |
+|    clip_fraction        | 0.167        |
+|    clip_range           | 0.2          |
+|    entropy_loss         | -0.97        |
+|    explained_variance   | -0.558       |
+|    learning_rate        | 0.0003       |
+|    loss                 | -0.0284      |
+|    n_updates            | 120          |
+|    policy_gradient_loss | -0.0179      |
+|    value_loss           | 0.00153      |
+------------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -3.15       |
+| time/                   |             |
+|    fps                  | 73          |
+|    iterations           | 14          |
+|    time_elapsed         | 392         |
+|    total_timesteps      | 28672       |
+| trading/                |             |
+|    daily_return         | 0.0114      |
+|    drawdown             | -0.672      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 5.92e+03    |
+|    sharpe_ratio         | 0.0853      |
+| train/                  |             |
+|    approx_kl            | 0.013135543 |
+|    clip_fraction        | 0.153       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.941      |
+|    explained_variance   | -0.387      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0615     |
+|    n_updates            | 130         |
+|    policy_gradient_loss | -0.0168     |
+|    value_loss           | 0.00156     |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -3.15       |
+| time/                   |             |
+|    fps                  | 64          |
+|    iterations           | 15          |
+|    time_elapsed         | 476         |
+|    total_timesteps      | 30720       |
+| trading/                |             |
+|    daily_return         | -0.00581    |
+|    drawdown             | -0.817      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 3.3e+03     |
+|    sharpe_ratio         | 0.0812      |
+| train/                  |             |
+|    approx_kl            | 0.012165125 |
+|    clip_fraction        | 0.157       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.924      |
+|    explained_variance   | -0.169      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0317     |
+|    n_updates            | 140         |
+|    policy_gradient_loss | -0.0168     |
+|    value_loss           | 0.000876    |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -3.15       |
+| time/                   |             |
+|    fps                  | 56          |
+|    iterations           | 16          |
+|    time_elapsed         | 575         |
+|    total_timesteps      | 32768       |
+| trading/                |             |
+|    daily_return         | 0.00348     |
+|    drawdown             | -0.913      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 1.56e+03    |
+|    sharpe_ratio         | 0.0769      |
+| train/                  |             |
+|    approx_kl            | 0.013975378 |
+|    clip_fraction        | 0.16        |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.924      |
+|    explained_variance   | -0.186      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0413     |
+|    n_updates            | 150         |
+|    policy_gradient_loss | -0.0174     |
+|    value_loss           | 0.0014      |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -2.17       |
+| time/                   |             |
+|    fps                  | 51          |
+|    iterations           | 17          |
+|    time_elapsed         | 676         |
+|    total_timesteps      | 34816       |
+| trading/                |             |
+|    daily_return         | -7.49e-05   |
+|    drawdown             | -0.607      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 7.1e+03     |
+|    sharpe_ratio         | 0.0848      |
+| train/                  |             |
+|    approx_kl            | 0.012057096 |
+|    clip_fraction        | 0.13        |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.925      |
+|    explained_variance   | -0.198      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0264     |
+|    n_updates            | 160         |
+|    policy_gradient_loss | -0.0125     |
+|    value_loss           | 0.00134     |
+-----------------------------------------
+------------------------------------------
+| rollout/                |              |
+|    ep_len_mean          | 1.65e+04     |
+|    ep_rew_mean          | -2.17        |
+| time/                   |              |
+|    fps                  | 46           |
+|    iterations           | 18           |
+|    time_elapsed         | 794          |
+|    total_timesteps      | 36864        |
+| trading/                |              |
+|    daily_return         | -0.00625     |
+|    drawdown             | -0.439       |
+|    max_drawdown         | -0.981       |
+|    portfolio_value      | 1.01e+04     |
+|    sharpe_ratio         | 0.0834       |
+| train/                  |              |
+|    approx_kl            | 0.0139523465 |
+|    clip_fraction        | 0.164        |
+|    clip_range           | 0.2          |
+|    entropy_loss         | -0.936       |
+|    explained_variance   | -0.271       |
+|    learning_rate        | 0.0003       |
+|    loss                 | -0.061       |
+|    n_updates            | 170          |
+|    policy_gradient_loss | -0.0171      |
+|    value_loss           | 0.00171      |
+------------------------------------------
+----------------------------------------
+| rollout/                |            |
+|    ep_len_mean          | 1.65e+04   |
+|    ep_rew_mean          | -2.17      |
+| time/                   |            |
+|    fps                  | 32         |
+|    iterations           | 19         |
+|    time_elapsed         | 1183       |
+|    total_timesteps      | 38912      |
+| trading/                |            |
+|    daily_return         | -0.0152    |
+|    drawdown             | -0.4       |
+|    max_drawdown         | -0.981     |
+|    portfolio_value      | 1.08e+04   |
+|    sharpe_ratio         | 0.0815     |
+| train/                  |            |
+|    approx_kl            | 0.01236544 |
+|    clip_fraction        | 0.134      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -0.945     |
+|    explained_variance   | 0.106      |
+|    learning_rate        | 0.0003     |
+|    loss                 | -0.0521    |
+|    n_updates            | 180        |
+|    policy_gradient_loss | -0.0152    |
+|    value_loss           | 0.0011     |
+----------------------------------------
+------------------------------------------
+| rollout/                |              |
+|    ep_len_mean          | 1.65e+04     |
+|    ep_rew_mean          | -2.17        |
+| time/                   |              |
+|    fps                  | 25           |
+|    iterations           | 20           |
+|    time_elapsed         | 1578         |
+|    total_timesteps      | 40960        |
+| trading/                |              |
+|    daily_return         | 0.014        |
+|    drawdown             | -0.539       |
+|    max_drawdown         | -0.981       |
+|    portfolio_value      | 8.32e+03     |
+|    sharpe_ratio         | 0.0791       |
+| train/                  |              |
+|    approx_kl            | 0.0121445395 |
+|    clip_fraction        | 0.151        |
+|    clip_range           | 0.2          |
+|    entropy_loss         | -0.951       |
+|    explained_variance   | 0.0363       |
+|    learning_rate        | 0.0003       |
+|    loss                 | -0.00926     |
+|    n_updates            | 190          |
+|    policy_gradient_loss | -0.0179      |
+|    value_loss           | 0.00117      |
+------------------------------------------
+------------------------------------------
+| rollout/                |              |
+|    ep_len_mean          | 1.65e+04     |
+|    ep_rew_mean          | -2.17        |
+| time/                   |              |
+|    fps                  | 25           |
+|    iterations           | 21           |
+|    time_elapsed         | 1657         |
+|    total_timesteps      | 43008        |
+| trading/                |              |
+|    daily_return         | -0.0012      |
+|    drawdown             | -0.692       |
+|    max_drawdown         | -0.981       |
+|    portfolio_value      | 5.56e+03     |
+|    sharpe_ratio         | 0.0765       |
+| train/                  |              |
+|    approx_kl            | 0.0155778825 |
+|    clip_fraction        | 0.172        |
+|    clip_range           | 0.2          |
+|    entropy_loss         | -0.901       |
+|    explained_variance   | -0.07        |
+|    learning_rate        | 0.0003       |
+|    loss                 | -0.0321      |
+|    n_updates            | 200          |
+|    policy_gradient_loss | -0.0218      |
+|    value_loss           | 0.00111      |
+------------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -2.17       |
+| time/                   |             |
+|    fps                  | 26          |
+|    iterations           | 22          |
+|    time_elapsed         | 1692        |
+|    total_timesteps      | 45056       |
+| trading/                |             |
+|    daily_return         | 0.0052      |
+|    drawdown             | -0.637      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 6.54e+03    |
+|    sharpe_ratio         | 0.0751      |
+| train/                  |             |
+|    approx_kl            | 0.012116273 |
+|    clip_fraction        | 0.147       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.913      |
+|    explained_variance   | -0.296      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0401     |
+|    n_updates            | 210         |
+|    policy_gradient_loss | -0.0219     |
+|    value_loss           | 0.000989    |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -2.17       |
+| time/                   |             |
+|    fps                  | 27          |
+|    iterations           | 23          |
+|    time_elapsed         | 1726        |
+|    total_timesteps      | 47104       |
+| trading/                |             |
+|    daily_return         | -0.0043     |
+|    drawdown             | -0.732      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 4.84e+03    |
+|    sharpe_ratio         | 0.073       |
+| train/                  |             |
+|    approx_kl            | 0.013760276 |
+|    clip_fraction        | 0.167       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.904      |
+|    explained_variance   | -0.221      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0479     |
+|    n_updates            | 220         |
+|    policy_gradient_loss | -0.0186     |
+|    value_loss           | 0.000651    |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -2.17       |
+| time/                   |             |
+|    fps                  | 27          |
+|    iterations           | 24          |
+|    time_elapsed         | 1758        |
+|    total_timesteps      | 49152       |
+| trading/                |             |
+|    daily_return         | 0.000506    |
+|    drawdown             | -0.854      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 2.63e+03    |
+|    sharpe_ratio         | 0.0704      |
+| train/                  |             |
+|    approx_kl            | 0.013888877 |
+|    clip_fraction        | 0.15        |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.886      |
+|    explained_variance   | -0.189      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0247     |
+|    n_updates            | 230         |
+|    policy_gradient_loss | -0.0185     |
+|    value_loss           | 0.00123     |
+-----------------------------------------
+------------------------------------------
+| rollout/                |              |
+|    ep_len_mean          | 1.65e+04     |
+|    ep_rew_mean          | -1.71        |
+| time/                   |              |
+|    fps                  | 28           |
+|    iterations           | 25           |
+|    time_elapsed         | 1801         |
+|    total_timesteps      | 51200        |
+| trading/                |              |
+|    daily_return         | 0.00193      |
+|    drawdown             | -0.342       |
+|    max_drawdown         | -0.981       |
+|    portfolio_value      | 1.19e+04     |
+|    sharpe_ratio         | 0.0747       |
+| train/                  |              |
+|    approx_kl            | 0.0154125495 |
+|    clip_fraction        | 0.186        |
+|    clip_range           | 0.2          |
+|    entropy_loss         | -0.906       |
+|    explained_variance   | -0.0739      |
+|    learning_rate        | 0.0003       |
+|    loss                 | -0.0201      |
+|    n_updates            | 240          |
+|    policy_gradient_loss | -0.0176      |
+|    value_loss           | 0.000878     |
+------------------------------------------
+----------------------------------------
+| rollout/                |            |
+|    ep_len_mean          | 1.65e+04   |
+|    ep_rew_mean          | -1.71      |
+| time/                   |            |
+|    fps                  | 28         |
+|    iterations           | 26         |
+|    time_elapsed         | 1866       |
+|    total_timesteps      | 53248      |
+| trading/                |            |
+|    daily_return         | 0          |
+|    drawdown             | -0.332     |
+|    max_drawdown         | -0.981     |
+|    portfolio_value      | 1.21e+04   |
+|    sharpe_ratio         | 0.0734     |
+| train/                  |            |
+|    approx_kl            | 0.01350609 |
+|    clip_fraction        | 0.169      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -0.938     |
+|    explained_variance   | -0.28      |
+|    learning_rate        | 0.0003     |
+|    loss                 | -0.0703    |
+|    n_updates            | 250        |
+|    policy_gradient_loss | -0.0205    |
+|    value_loss           | 0.000573   |
+----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.71       |
+| time/                   |             |
+|    fps                  | 28          |
+|    iterations           | 27          |
+|    time_elapsed         | 1916        |
+|    total_timesteps      | 55296       |
+| trading/                |             |
+|    daily_return         | 0           |
+|    drawdown             | -0.469      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 9.58e+03    |
+|    sharpe_ratio         | 0.0717      |
+| train/                  |             |
+|    approx_kl            | 0.013508166 |
+|    clip_fraction        | 0.164       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.912      |
+|    explained_variance   | -0.0815     |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.058      |
+|    n_updates            | 260         |
+|    policy_gradient_loss | -0.0188     |
+|    value_loss           | 0.000683    |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.71       |
+| time/                   |             |
+|    fps                  | 29          |
+|    iterations           | 28          |
+|    time_elapsed         | 1971        |
+|    total_timesteps      | 57344       |
+| trading/                |             |
+|    daily_return         | -0.00245    |
+|    drawdown             | -0.701      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 5.4e+03     |
+|    sharpe_ratio         | 0.0695      |
+| train/                  |             |
+|    approx_kl            | 0.014109026 |
+|    clip_fraction        | 0.159       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.899      |
+|    explained_variance   | -0.0359     |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0523     |
+|    n_updates            | 270         |
+|    policy_gradient_loss | -0.0176     |
+|    value_loss           | 0.000617    |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.71       |
+| time/                   |             |
+|    fps                  | 27          |
+|    iterations           | 29          |
+|    time_elapsed         | 2156        |
+|    total_timesteps      | 59392       |
+| trading/                |             |
+|    daily_return         | 0           |
+|    drawdown             | -0.812      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 3.4e+03     |
+|    sharpe_ratio         | 0.0675      |
+| train/                  |             |
+|    approx_kl            | 0.012976363 |
+|    clip_fraction        | 0.176       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.875      |
+|    explained_variance   | -0.0425     |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.057      |
+|    n_updates            | 280         |
+|    policy_gradient_loss | -0.0213     |
+|    value_loss           | 0.00102     |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.71       |
+| time/                   |             |
+|    fps                  | 27          |
+|    iterations           | 30          |
+|    time_elapsed         | 2274        |
+|    total_timesteps      | 61440       |
+| trading/                |             |
+|    daily_return         | -0.00609    |
+|    drawdown             | -0.848      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 2.74e+03    |
+|    sharpe_ratio         | 0.0661      |
+| train/                  |             |
+|    approx_kl            | 0.013454095 |
+|    clip_fraction        | 0.173       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.866      |
+|    explained_variance   | -0.301      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0467     |
+|    n_updates            | 290         |
+|    policy_gradient_loss | -0.0203     |
+|    value_loss           | 0.000683    |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.71       |
+| time/                   |             |
+|    fps                  | 24          |
+|    iterations           | 31          |
+|    time_elapsed         | 2638        |
+|    total_timesteps      | 63488       |
+| trading/                |             |
+|    daily_return         | 0.00298     |
+|    drawdown             | -0.909      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 1.64e+03    |
+|    sharpe_ratio         | 0.0642      |
+| train/                  |             |
+|    approx_kl            | 0.012890899 |
+|    clip_fraction        | 0.182       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.855      |
+|    explained_variance   | -0.607      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0474     |
+|    n_updates            | 300         |
+|    policy_gradient_loss | -0.0192     |
+|    value_loss           | 0.000374    |
+-----------------------------------------
+----------------------------------------
+| rollout/                |            |
+|    ep_len_mean          | 1.65e+04   |
+|    ep_rew_mean          | -1.71      |
+| time/                   |            |
+|    fps                  | 23         |
+|    iterations           | 32         |
+|    time_elapsed         | 2823       |
+|    total_timesteps      | 65536      |
+| trading/                |            |
+|    daily_return         | 0.000139   |
+|    drawdown             | -0.936     |
+|    max_drawdown         | -0.981     |
+|    portfolio_value      | 1.16e+03   |
+|    sharpe_ratio         | 0.0627     |
+| train/                  |            |
+|    approx_kl            | 0.01402934 |
+|    clip_fraction        | 0.162      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -0.839     |
+|    explained_variance   | -0.29      |
+|    learning_rate        | 0.0003     |
+|    loss                 | -0.0565    |
+|    n_updates            | 310        |
+|    policy_gradient_loss | -0.0198    |
+|    value_loss           | 0.000687   |
+----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.78       |
+| time/                   |             |
+|    fps                  | 21          |
+|    iterations           | 33          |
+|    time_elapsed         | 3098        |
+|    total_timesteps      | 67584       |
+| trading/                |             |
+|    daily_return         | 0           |
+|    drawdown             | -0.435      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 1.02e+04    |
+|    sharpe_ratio         | 0.0753      |
+| train/                  |             |
+|    approx_kl            | 0.013799442 |
+|    clip_fraction        | 0.162       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.824      |
+|    explained_variance   | -0.0576     |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0331     |
+|    n_updates            | 320         |
+|    policy_gradient_loss | -0.0189     |
+|    value_loss           | 0.000768    |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.78       |
+| time/                   |             |
+|    fps                  | 19          |
+|    iterations           | 34          |
+|    time_elapsed         | 3500        |
+|    total_timesteps      | 69632       |
+| trading/                |             |
+|    daily_return         | -0.00123    |
+|    drawdown             | -0.233      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 1.38e+04    |
+|    sharpe_ratio         | 0.0747      |
+| train/                  |             |
+|    approx_kl            | 0.012580316 |
+|    clip_fraction        | 0.151       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.844      |
+|    explained_variance   | -0.0602     |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0351     |
+|    n_updates            | 330         |
+|    policy_gradient_loss | -0.0169     |
+|    value_loss           | 0.000914    |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.78       |
+| time/                   |             |
+|    fps                  | 19          |
+|    iterations           | 35          |
+|    time_elapsed         | 3609        |
+|    total_timesteps      | 71680       |
+| trading/                |             |
+|    daily_return         | 0.00212     |
+|    drawdown             | -0.416      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 1.05e+04    |
+|    sharpe_ratio         | 0.0733      |
+| train/                  |             |
+|    approx_kl            | 0.013651216 |
+|    clip_fraction        | 0.18        |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.825      |
+|    explained_variance   | -0.043      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0342     |
+|    n_updates            | 340         |
+|    policy_gradient_loss | -0.0164     |
+|    value_loss           | 0.000579    |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.78       |
+| time/                   |             |
+|    fps                  | 20          |
+|    iterations           | 36          |
+|    time_elapsed         | 3654        |
+|    total_timesteps      | 73728       |
+| trading/                |             |
+|    daily_return         | 0           |
+|    drawdown             | -0.684      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 5.7e+03     |
+|    sharpe_ratio         | 0.0715      |
+| train/                  |             |
+|    approx_kl            | 0.014059277 |
+|    clip_fraction        | 0.172       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.846      |
+|    explained_variance   | -0.0263     |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0398     |
+|    n_updates            | 350         |
+|    policy_gradient_loss | -0.0211     |
+|    value_loss           | 0.000706    |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.78       |
+| time/                   |             |
+|    fps                  | 20          |
+|    iterations           | 37          |
+|    time_elapsed         | 3708        |
+|    total_timesteps      | 75776       |
+| trading/                |             |
+|    daily_return         | 0           |
+|    drawdown             | -0.837      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 2.94e+03    |
+|    sharpe_ratio         | 0.0696      |
+| train/                  |             |
+|    approx_kl            | 0.015361634 |
+|    clip_fraction        | 0.188       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.817      |
+|    explained_variance   | -0.0819     |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0577     |
+|    n_updates            | 360         |
+|    policy_gradient_loss | -0.0238     |
+|    value_loss           | 0.000958    |
+-----------------------------------------
+----------------------------------------
+| rollout/                |            |
+|    ep_len_mean          | 1.65e+04   |
+|    ep_rew_mean          | -1.78      |
+| time/                   |            |
+|    fps                  | 20         |
+|    iterations           | 38         |
+|    time_elapsed         | 3757       |
+|    total_timesteps      | 77824      |
+| trading/                |            |
+|    daily_return         | 0.00602    |
+|    drawdown             | -0.88      |
+|    max_drawdown         | -0.981     |
+|    portfolio_value      | 2.16e+03   |
+|    sharpe_ratio         | 0.0683     |
+| train/                  |            |
+|    approx_kl            | 0.01421998 |
+|    clip_fraction        | 0.154      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -0.82      |
+|    explained_variance   | -0.183     |
+|    learning_rate        | 0.0003     |
+|    loss                 | -0.0356    |
+|    n_updates            | 370        |
+|    policy_gradient_loss | -0.0192    |
+|    value_loss           | 0.000761   |
+----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.78       |
+| time/                   |             |
+|    fps                  | 20          |
+|    iterations           | 39          |
+|    time_elapsed         | 3813        |
+|    total_timesteps      | 79872       |
+| trading/                |             |
+|    daily_return         | 0.00171     |
+|    drawdown             | -0.918      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 1.48e+03    |
+|    sharpe_ratio         | 0.0669      |
+| train/                  |             |
+|    approx_kl            | 0.016740128 |
+|    clip_fraction        | 0.174       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.794      |
+|    explained_variance   | -0.0972     |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0496     |
+|    n_updates            | 380         |
+|    policy_gradient_loss | -0.0181     |
+|    value_loss           | 0.000487    |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.78       |
+| time/                   |             |
+|    fps                  | 21          |
+|    iterations           | 40          |
+|    time_elapsed         | 3866        |
+|    total_timesteps      | 81920       |
+| trading/                |             |
+|    daily_return         | 0           |
+|    drawdown             | -0.956      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 787         |
+|    sharpe_ratio         | 0.0653      |
+| train/                  |             |
+|    approx_kl            | 0.019501893 |
+|    clip_fraction        | 0.19        |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.796      |
+|    explained_variance   | -0.0575     |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0151     |
+|    n_updates            | 390         |
+|    policy_gradient_loss | -0.0222     |
+|    value_loss           | 0.000896    |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.86       |
+| time/                   |             |
+|    fps                  | 21          |
+|    iterations           | 41          |
+|    time_elapsed         | 3919        |
+|    total_timesteps      | 83968       |
+| trading/                |             |
+|    daily_return         | -0.000695   |
+|    drawdown             | -0.614      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 6.96e+03    |
+|    sharpe_ratio         | 0.0787      |
+| train/                  |             |
+|    approx_kl            | 0.013744073 |
+|    clip_fraction        | 0.176       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.783      |
+|    explained_variance   | -0.0608     |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0412     |
+|    n_updates            | 400         |
+|    policy_gradient_loss | -0.0195     |
+|    value_loss           | 0.000891    |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.86       |
+| time/                   |             |
+|    fps                  | 21          |
+|    iterations           | 42          |
+|    time_elapsed         | 3974        |
+|    total_timesteps      | 86016       |
+| trading/                |             |
+|    daily_return         | -0.0154     |
+|    drawdown             | -0.642      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 6.46e+03    |
+|    sharpe_ratio         | 0.0777      |
+| train/                  |             |
+|    approx_kl            | 0.018727269 |
+|    clip_fraction        | 0.191       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.782      |
+|    explained_variance   | -0.087      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0184     |
+|    n_updates            | 410         |
+|    policy_gradient_loss | -0.0225     |
+|    value_loss           | 0.00053     |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.86       |
+| time/                   |             |
+|    fps                  | 21          |
+|    iterations           | 43          |
+|    time_elapsed         | 4030        |
+|    total_timesteps      | 88064       |
+| trading/                |             |
+|    daily_return         | 0           |
+|    drawdown             | -0.545      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 8.21e+03    |
+|    sharpe_ratio         | 0.0772      |
+| train/                  |             |
+|    approx_kl            | 0.014173014 |
+|    clip_fraction        | 0.182       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.785      |
+|    explained_variance   | -0.196      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0581     |
+|    n_updates            | 420         |
+|    policy_gradient_loss | -0.0194     |
+|    value_loss           | 0.000522    |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.86       |
+| time/                   |             |
+|    fps                  | 22          |
+|    iterations           | 44          |
+|    time_elapsed         | 4089        |
+|    total_timesteps      | 90112       |
+| trading/                |             |
+|    daily_return         | 0.0264      |
+|    drawdown             | -0.639      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 6.51e+03    |
+|    sharpe_ratio         | 0.0761      |
+| train/                  |             |
+|    approx_kl            | 0.016421856 |
+|    clip_fraction        | 0.174       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.781      |
+|    explained_variance   | 0.0366      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0435     |
+|    n_updates            | 430         |
+|    policy_gradient_loss | -0.0186     |
+|    value_loss           | 0.000951    |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.86       |
+| time/                   |             |
+|    fps                  | 22          |
+|    iterations           | 45          |
+|    time_elapsed         | 4145        |
+|    total_timesteps      | 92160       |
+| trading/                |             |
+|    daily_return         | 0.00225     |
+|    drawdown             | -0.678      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 5.82e+03    |
+|    sharpe_ratio         | 0.0752      |
+| train/                  |             |
+|    approx_kl            | 0.018372068 |
+|    clip_fraction        | 0.194       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.739      |
+|    explained_variance   | 0.00412     |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0332     |
+|    n_updates            | 440         |
+|    policy_gradient_loss | -0.025      |
+|    value_loss           | 0.000606    |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.86       |
+| time/                   |             |
+|    fps                  | 22          |
+|    iterations           | 46          |
+|    time_elapsed         | 4207        |
+|    total_timesteps      | 94208       |
+| trading/                |             |
+|    daily_return         | -0.000999   |
+|    drawdown             | -0.74       |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 4.69e+03    |
+|    sharpe_ratio         | 0.0741      |
+| train/                  |             |
+|    approx_kl            | 0.015933584 |
+|    clip_fraction        | 0.176       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.761      |
+|    explained_variance   | -0.21       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0518     |
+|    n_updates            | 450         |
+|    policy_gradient_loss | -0.0184     |
+|    value_loss           | 0.000443    |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.65e+04    |
+|    ep_rew_mean          | -1.86       |
+| time/                   |             |
+|    fps                  | 22          |
+|    iterations           | 47          |
+|    time_elapsed         | 4264        |
+|    total_timesteps      | 96256       |
+| trading/                |             |
+|    daily_return         | 0           |
+|    drawdown             | -0.718      |
+|    max_drawdown         | -0.981      |
+|    portfolio_value      | 5.09e+03    |
+|    sharpe_ratio         | 0.0735      |
+| train/                  |             |
+|    approx_kl            | 0.019131891 |
+|    clip_fraction        | 0.195       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.767      |
+|    explained_variance   | -0.0668     |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.000602    |
+|    n_updates            | 460         |
+|    policy_gradient_loss | -0.0192     |
+|    value_loss           | 0.000631    |
+-----------------------------------------
+----------------------------------------
+| rollout/                |            |
+|    ep_len_mean          | 1.65e+04   |
+|    ep_rew_mean          | -1.86      |
+| time/                   |            |
+|    fps                  | 22         |
+|    iterations           | 48         |
+|    time_elapsed         | 4323       |
+|    total_timesteps      | 98304      |
+| trading/                |            |
+|    daily_return         | 0.0372     |
+|    drawdown             | -0.784     |
+|    max_drawdown         | -0.981     |
+|    portfolio_value      | 3.91e+03   |
+|    sharpe_ratio         | 0.0725     |
+| train/                  |            |
+|    approx_kl            | 0.02095208 |
+|    clip_fraction        | 0.195      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -0.711     |
+|    explained_variance   | -0.137     |
+|    learning_rate        | 0.0003     |
+|    loss                 | -0.0399    |
+|    n_updates            | 470        |
+|    policy_gradient_loss | -0.0205    |
+|    value_loss           | 0.000536   |
+----------------------------------------
+----------------------------------------
+| rollout/                |            |
+|    ep_len_mean          | 1.65e+04   |
+|    ep_rew_mean          | -1.65      |
+| time/                   |            |
+|    fps                  | 22         |
+|    iterations           | 49         |
+|    time_elapsed         | 4383       |
+|    total_timesteps      | 100352     |
+| trading/                |            |
+|    daily_return         | 0          |
+|    drawdown             | -0.541     |
+|    max_drawdown         | -0.981     |
+|    portfolio_value      | 8.29e+03   |
+|    sharpe_ratio         | 0.0737     |
+| train/                  |            |
+|    approx_kl            | 0.01741115 |
+|    clip_fraction        | 0.193      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -0.731     |
+|    explained_variance   | -0.0936    |
+|    learning_rate        | 0.0003     |
+|    loss                 | -0.0286    |
+|    n_updates            | 480        |
+|    policy_gradient_loss | -0.0188    |
+|    value_loss           | 0.00103    |
+----------------------------------------
+INFO:agents.ppo_agent:Model saved to models\ppo_SOL_USD.zip
+INFO:agents.ppo_agent:Training of SOL_USD agent completed
+INFO:__main__:Training completed for SOL_USD

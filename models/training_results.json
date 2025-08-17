@@ -1,31 +1,31 @@
 {
     "BTC_USD": {
         "exit_code": 0,
-        "duration": 1607.1501405239105,
+        "duration": 1657.624366760254,
         "gpu_id": 0,
         "success": true
     },
     "ETH_USD": {
         "exit_code": 0,
-        "duration": 1540.097072839737,
+        "duration": 1693.631592988968,
         "gpu_id": 0,
         "success": true
     },
     "SOL_USD": {
         "exit_code": 0,
-        "duration": 1633.1478803157806,
+        "duration": 4391.720055103302,
         "gpu_id": 0,
         "success": true
     },
     "LINK_USD": {
         "exit_code": 0,
-        "duration": 1557.093939781189,
+        "duration": 2282.8331842422485,
         "gpu_id": 0,
         "success": true
     },
     "XRP_USD": {
         "exit_code": 0,
-        "duration": 1468.0628905296326,
+        "duration": 2374.89186501503,
         "gpu_id": 0,
         "success": true
     }

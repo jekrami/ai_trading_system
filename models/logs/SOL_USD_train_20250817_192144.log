@@ -1,0 +1,13 @@
+2025-08-17 19:21:44,413 - INFO - Logging to models\logs\SOL_USD_train_20250817_192144.log
+2025-08-17 19:21:44,414 - INFO - No config file provided or found, using defaults.
+2025-08-17 19:21:44,414 - INFO - Loading data for SOL_USD from data
+2025-08-17 19:21:44,453 - INFO - Data shape: (16528, 5)
+2025-08-17 19:21:44,453 - INFO - Data columns: ['close', 'high', 'low', 'open', 'volume']
+2025-08-17 19:21:44,457 - INFO - Data sample: 
+                               close       high        low       open    volume
+datetime                                                                       
+2023-06-16 20:00:00+00:00  15.391171  15.399173  15.227420  15.252854  576704.0
+2023-06-16 21:00:00+00:00  15.303020  15.394573  15.287519  15.391732       0.0
+2023-06-16 22:00:00+00:00  15.327859  15.364041  15.303703  15.303703       0.0
+2025-08-17 19:21:45,790 - INFO - Starting training for SOL_USD for 100000 timesteps
+2025-08-17 20:34:51,818 - INFO - Training completed for SOL_USD

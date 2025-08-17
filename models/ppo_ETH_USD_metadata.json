@@ -1,6 +1,6 @@
 {
     "symbol": "ETH_USD",
-    "train_date": "2025-05-19T10:49:09.504346",
+    "train_date": "2025-08-17T19:21:39.533617",
     "model_type": "PPO",
     "observation_space": "Box(-inf, inf, (266,), float32)",
     "action_space": "Discrete(3)"
