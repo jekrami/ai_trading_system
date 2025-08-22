@@ -77,13 +77,15 @@ class PPOTradingAgent:
         model_path: str = "models",
         tensorboard_log: str = "logs",
         device: Union[str, torch.device] = "auto",
-        n_steps: int = 2048,
-        batch_size: int = 64,
-        n_epochs: int = 10,
+        n_steps: int = 4096,
+        batch_size: int = 512,
+        n_epochs: int = 20,
         gamma: float = 0.99,
         learning_rate: float = 3e-4,
         policy_kwargs: Optional[Dict] = None,
-        seed: Optional[int] = None
+        seed: Optional[int] = None,
+        use_mixed_precision: bool = True,
+        gradient_accumulation_steps: int = 4
     ):
         """
         Initialize a PPO trading agent.
@@ -118,11 +120,19 @@ class PPOTradingAgent:
         # Set up policy_kwargs if not provided
         if policy_kwargs is None:
             policy_kwargs = {
-                "net_arch": [64, 64],  # Simpler network architecture
+                "net_arch": [256, 256, 128],  # Larger network for better capacity
                 "activation_fn": torch.nn.ReLU,
                 "ortho_init": True,  # Use orthogonal initialization for stability
                 "log_std_init": -2.0,  # Smaller initial log std for more conservative exploration
             }
+
+        # Enable mixed precision training if requested and available
+        self.use_mixed_precision = use_mixed_precision and torch.cuda.is_available()
+        if self.use_mixed_precision:
+            logger.info("Mixed precision training enabled for faster training on RTX 3090")
+
+        # Store gradient accumulation steps
+        self.gradient_accumulation_steps = gradient_accumulation_steps
         
         # Build PPO agent
         self.model = PPO(

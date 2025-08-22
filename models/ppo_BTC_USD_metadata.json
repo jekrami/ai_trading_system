@@ -1,6 +1,6 @@
 {
     "symbol": "BTC_USD",
-    "train_date": "2025-08-17T18:53:24.623462",
+    "train_date": "2025-08-19T23:00:25.640492",
     "model_type": "PPO",
     "observation_space": "Box(-inf, inf, (266,), float32)",
     "action_space": "Discrete(3)"

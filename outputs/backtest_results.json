@@ -1,61 +1,14 @@
 {
-    "BTC_USD": {
-        "symbol": "BTC_USD",
-        "initial_value": 10000.0,
-        "final_value": 4862.812046064386,
-        "total_return": -0.5137187953935614,
-        "sharpe_ratio": -0.4307781825340349,
-        "max_drawdown": -0.569690453911569,
-        "total_trades": 1446,
-        "total_fee_paid": 10427.075894933674
-    },
-    "ETH_USD": {
-        "symbol": "ETH_USD",
-        "initial_value": 10000.0,
-        "final_value": 3817.482886035513,
-        "total_return": -0.6182517113964487,
-        "sharpe_ratio": -0.2330834246586461,
-        "max_drawdown": -0.7914118660506866,
-        "total_trades": 1194,
-        "total_fee_paid": 7372.859048872063
-    },
-    "SOL_USD": {
-        "symbol": "SOL_USD",
-        "initial_value": 10000.0,
-        "final_value": 15048.196470637688,
-        "total_return": 0.5048196470637687,
-        "sharpe_ratio": 0.1639404259694049,
-        "max_drawdown": -0.5115052498706246,
-        "total_trades": 1117,
-        "total_fee_paid": 13971.073049128381
-    },
-    "LINK_USD": {
-        "symbol": "LINK_USD",
-        "initial_value": 10000.0,
-        "final_value": 10581.122698262396,
-        "total_return": 0.058112269826239515,
-        "sharpe_ratio": 0.08721501688208336,
-        "max_drawdown": -0.6817038323801878,
-        "total_trades": 462,
-        "total_fee_paid": 4683.039370293595
-    },
-    "XRP_USD": {
-        "symbol": "XRP_USD",
-        "initial_value": 10000.0,
-        "final_value": 31002.073836401465,
-        "total_return": 2.1002073836401465,
-        "sharpe_ratio": 0.2795996279642758,
-        "max_drawdown": -0.48180409981851513,
-        "total_trades": 531,
-        "total_fee_paid": 6155.859845234259
-    },
-    "portfolio": {
-        "initial_capital": 0,
-        "final_equity": 0,
-        "total_return": 0,
-        "sharpe_ratio": 0,
-        "max_drawdown": 0,
-        "total_trades": 0,
-        "win_rate": 0
-    }
-}
+    "ADA_USD": {
+        "symbol": "ADA_USD",
+        "initial_capital": 10000.0,
+        "final_equity": 14245.903289361027,
+        "total_return": 0.4245903289361028,
+        "annual_return": 0.012399671212411393,
+        "sharpe_ratio": 0.14118377572448748,
+        "max_drawdown": -0.510087883379918,
+        "num_trades": 222,
+        "win_rate": 0.32432432432432434,
+        "trade_history": [
+            {
+                "date": 

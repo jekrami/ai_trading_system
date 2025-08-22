@@ -1,0 +1,42 @@
+{
+  "system": {
+    "name": "AI Trading System",
+    "version": "1.0.0",
+    "mode": "backtest",
+    "start_date": "2024-05-17",
+    "end_date": "2025-05-17"
+  },
+  "asset_selection": {
+    "max_assets": 5,
+    "lookback_days": 30,
+    "min_volume_usd": 1000000,
+    "min_market_cap_usd": 10000000
+  },
+  "training": {
+    "window_size": 24,
+    "initial_balance": 10000.0,
+    "transaction_fee": 0.001,
+    "timesteps": 100000,
+    "batch_size": 512,
+    "n_steps": 4096,
+    "n_epochs": 20,
+    "learning_rate": 0.0003,
+    "net_arch": [
+      256,
+      256,
+      128
+    ],
+    "use_mixed_precision": true,
+    "gradient_accumulation_steps": 4
+  },
+  "portfolio": {
+    "allocation_method": "risk_parity",
+    "max_allocation": 0.4,
+    "min_allocation": 0.05,
+    "risk_aversion": 1.2
+  },
+  "execution": {
+    "rebalance_interval": "1d",
+    "order_type": "market"
+  }
+}
