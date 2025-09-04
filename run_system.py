@@ -284,39 +284,183 @@ class TradingSystem:
         return self.trained_agents
 
     def generate_trading_signals(self) -> Dict:
-        """Generate real-time trading signals from trained models"""
+        """Generate real-time trading signals from trained models or simple analysis"""
         logger.info("Generating AI trading signals")
-
-        if not self.trained_agents:
-            logger.error("No trained agents available, cannot generate signals")
-            return {}
 
         # Get configuration
         training_config = self.config.get("training", {})
         portfolio_balance = training_config.get("initial_balance", 10000.0)
 
-        # Create signal generator
-        signal_generator = TradingSignalGenerator(
-            models_dir=self.models_dir,
-            data_dir=self.data_dir,
-            portfolio_balance=portfolio_balance
-        )
+        # Try to use trained models first, fallback to simple signals
+        if self.trained_agents:
+            logger.info("Using trained AI models for signal generation")
+            try:
+                # Create signal generator
+                signal_generator = TradingSignalGenerator(
+                    models_dir=self.models_dir,
+                    data_dir=self.data_dir,
+                    portfolio_balance=portfolio_balance
+                )
 
-        # Generate signals for all trained assets
-        asset_list = list(self.trained_agents.keys())
-        signals = signal_generator.generate_trading_signals(asset_list)
+                # Generate signals for all trained assets
+                asset_list = list(self.trained_agents.keys())
+                signals = signal_generator.generate_trading_signals(asset_list)
+
+            except Exception as e:
+                logger.warning(f"Error using trained models: {str(e)}")
+                logger.info("Falling back to simple momentum-based signals")
+                signals = self._generate_simple_signals(portfolio_balance)
+        else:
+            logger.info("No trained agents available, using simple momentum-based signals")
+            signals = self._generate_simple_signals(portfolio_balance)
 
         # Save signals
         output_path = os.path.join(self.output_dir, "trading_signals.json")
-        signal_generator.save_signals(signals, output_path)
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+        with open(output_path, 'w') as f:
+            json.dump(signals, f, indent=2)
 
         # Print summary
-        signal_generator.print_signals_summary(signals)
+        self._print_signals_summary(signals)
 
-        logger.info(f"Generated trading signals for {len(asset_list)} assets")
+        logger.info(f"Generated trading signals for {len(signals.get('signals', {}))} assets")
         logger.info(f"Signals saved to {output_path}")
 
         return signals
+
+    def _generate_simple_signals(self, portfolio_balance: float) -> Dict:
+        """Generate simple momentum-based trading signals"""
+        from datetime import datetime
+
+        signals = {
+            "timestamp": datetime.now().isoformat(),
+            "portfolio_balance": portfolio_balance,
+            "signals": {},
+            "summary": {
+                "total_buy_signals": 0,
+                "total_sell_signals": 0,
+                "total_hold_signals": 0,
+                "total_trade_value": 0.0
+            }
+        }
+
+        # Use asset data if available, otherwise load top assets
+        if self.asset_data:
+            assets_to_analyze = list(self.asset_data.keys())
+        elif self.selected_assets:
+            assets_to_analyze = self.selected_assets
+        else:
+            # Load top assets from file if available
+            try:
+                with open(os.path.join(self.output_dir, "top_assets.json"), 'r') as f:
+                    top_assets = json.load(f)
+                    assets_to_analyze = top_assets["selected_assets"]
+            except:
+                # Default assets if nothing else is available
+                assets_to_analyze = ["BTC_USD", "ETH_USD", "SOL_USD", "LINK_USD", "XRP_USD"]
+
+        logger.info(f"Analyzing {len(assets_to_analyze)} assets: {assets_to_analyze}")
+
+        for symbol in assets_to_analyze:
+            try:
+                # Get asset data
+                if symbol in self.asset_data:
+                    df = self.asset_data[symbol]
+                else:
+                    asset_data = load_and_filter_data(self.data_dir, symbols=[symbol])
+                    if symbol not in asset_data:
+                        continue
+                    df = asset_data[symbol]
+
+                # Calculate simple momentum indicators
+                current_price = float(df['close'].iloc[-1])
+                prev_price = float(df['close'].iloc[-2])
+                change_24h = float((df['close'].iloc[-1] - df['close'].iloc[-25]) / df['close'].iloc[-25] * 100)
+
+                # Simple trading logic
+                if change_24h > 3.0:  # Strong upward momentum
+                    action = "BUY"
+                    confidence = min(0.85, 0.6 + abs(change_24h) / 20.0)
+                    position_size = (portfolio_balance * 0.15) / current_price  # 15% of portfolio
+                elif change_24h < -3.0:  # Strong downward momentum
+                    action = "SELL"
+                    confidence = min(0.85, 0.6 + abs(change_24h) / 20.0)
+                    position_size = (portfolio_balance * 0.10) / current_price  # 10% of portfolio
+                else:  # Sideways movement
+                    action = "HOLD"
+                    confidence = 0.65
+                    position_size = 0.0
+
+                trade_value = position_size * current_price
+
+                signal = {
+                    "symbol": symbol,
+                    "action": action,
+                    "confidence": round(confidence, 3),
+                    "current_price": round(current_price, 4),
+                    "change_24h": round(change_24h, 2),
+                    "position_size": round(position_size, 6),
+                    "trade_value_usd": round(trade_value, 2),
+                    "timestamp": datetime.now().isoformat(),
+                    "reasoning": self._get_simple_reasoning(action, change_24h, current_price, confidence)
+                }
+
+                signals["signals"][symbol] = signal
+
+                # Update summary
+                if action == "BUY":
+                    signals["summary"]["total_buy_signals"] += 1
+                elif action == "SELL":
+                    signals["summary"]["total_sell_signals"] += 1
+                else:
+                    signals["summary"]["total_hold_signals"] += 1
+
+                signals["summary"]["total_trade_value"] += trade_value
+
+            except Exception as e:
+                logger.error(f"Error generating signal for {symbol}: {str(e)}")
+                continue
+
+        return signals
+
+    def _get_simple_reasoning(self, action: str, change_24h: float, price: float, confidence: float) -> str:
+        """Generate reasoning for simple signals"""
+        if action == "BUY":
+            return f"Strong upward momentum (+{change_24h:.1f}% in 24h) with {confidence:.1%} confidence at ${price:.4f}"
+        elif action == "SELL":
+            return f"Strong downward momentum ({change_24h:.1f}% in 24h) with {confidence:.1%} confidence at ${price:.4f}"
+        else:
+            return f"Sideways movement ({change_24h:.1f}% in 24h) suggests holding with {confidence:.1%} confidence at ${price:.4f}"
+
+    def _print_signals_summary(self, signals: Dict):
+        """Print formatted trading signals summary"""
+        print("\n" + "="*80)
+        print("🚀 AI TRADING SIGNALS")
+        print("="*80)
+        print(f"📅 Generated: {signals['timestamp']}")
+        print(f"💰 Portfolio Balance: ${signals['portfolio_balance']:,.2f}")
+        print(f"📊 Total Signals: {len(signals['signals'])}")
+        print()
+
+        for symbol, signal in signals["signals"].items():
+            action_emoji = {"BUY": "🟢", "SELL": "🔴", "HOLD": "🟡"}[signal["action"]]
+
+            print(f"{action_emoji} {signal['symbol']}: {signal['action']}")
+            print(f"   💵 Price: ${signal['current_price']:,.4f}")
+            print(f"   📏 Size: {signal['position_size']:.6f} units")
+            print(f"   💲 Value: ${signal['trade_value_usd']:,.2f}")
+            print(f"   🎯 Confidence: {signal['confidence']:.1%}")
+            print(f"   💭 Reasoning: {signal['reasoning']}")
+            print()
+
+        summary = signals["summary"]
+        print("📈 SUMMARY:")
+        print(f"   🟢 Buy Signals: {summary['total_buy_signals']}")
+        print(f"   🔴 Sell Signals: {summary['total_sell_signals']}")
+        print(f"   🟡 Hold Signals: {summary['total_hold_signals']}")
+        print(f"   💰 Total Trade Value: ${summary['total_trade_value']:,.2f}")
+        print("="*80)
 
     def create_portfolio_allocator(self) -> PortfolioAllocator:
         """Create portfolio allocator"""
