@@ -1,14 +1,1 @@
-{
-    "ADA_USD": {
-        "symbol": "ADA_USD",
-        "initial_capital": 10000.0,
-        "final_equity": 14245.903289361027,
-        "total_return": 0.4245903289361028,
-        "annual_return": 0.012399671212411393,
-        "sharpe_ratio": 0.14118377572448748,
-        "max_drawdown": -0.510087883379918,
-        "num_trades": 222,
-        "win_rate": 0.32432432432432434,
-        "trade_history": [
-            {
-                "date": 
+{}

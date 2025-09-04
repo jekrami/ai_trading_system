@@ -2,8 +2,8 @@
     "system": {
         "name": "AI Trading System",
         "version": "1.0.0",
-        "mode": "backtest",
-        "start_date": "2024-05-17",
+        "mode": "pipeline",
+        "start_date": "2022-05-17",
         "end_date": "2025-05-17"
     },
     "asset_selection": {
@@ -16,14 +16,15 @@
         "window_size": 24,
         "initial_balance": 10000.0,
         "transaction_fee": 0.001,
-        "timesteps": 100000,
+        "timesteps": 10000,
         "batch_size": 2048,
         "n_steps": 16384,
         "n_epochs": 10,
         "learning_rate": 0.0003,
         "net_arch": [256, 256, 128],
         "use_mixed_precision": true,
-        "gradient_accumulation_steps": 4
+        "gradient_accumulation_steps": 4,
+        "use_native_pytorch": true
     },
     "portfolio": {
         "allocation_method": "risk_parity",

@@ -5,6 +5,7 @@ import json
 import logging
 import argparse
 from datetime import datetime, timedelta
+from typing import Dict, List, Optional
 import pandas as pd
 import numpy as np
 
@@ -12,11 +13,13 @@ import numpy as np
 from agents.asset_universe import AssetUniverseSelector, load_and_filter_data
 from agents.ppo_agent import PPOTradingAgent
 from agents.multi_gpu_trainer import train_multiple_agents, get_available_gpus
+from agents.gpu_optimized_trainer import train_single_asset_native, train_single_asset_optimized
 from envs.trading_env import TradingEnv
 from meta_agent.portfolio_allocator import PortfolioAllocator
 from backtesting.backtest_engine import BacktestEngine, sma_crossover_strategy
 from monitoring.metrics_logger import MetricsLogger
 from llm.reasoning_engine import ReasoningEngine
+from trading.signal_generator import TradingSignalGenerator
 
 # Set up logger
 logging.basicConfig(
@@ -180,42 +183,141 @@ class TradingSystem:
         return self.asset_data
     
     def train_agents(self) -> dict:
-        """Train RL agents for selected assets"""
-        logger.info("Starting agent training")
-        
+        """Train RL agents for selected assets using RTX 3090 optimized training"""
+        logger.info("Starting RTX 3090 optimized agent training")
+
         if not self.asset_data:
             logger.error("No asset data loaded, cannot train agents")
             return {}
-        
+
         # Get configuration
         training_config = self.config.get("training", {})
-        
+        timesteps = training_config.get("timesteps", 100000)
+
+        # Check if we should use native PyTorch implementation
+        use_native = training_config.get("use_native_pytorch", True)
+
         # Get available GPUs
         gpu_ids = get_available_gpus()
         if gpu_ids:
             logger.info(f"Found {len(gpu_ids)} GPUs: {gpu_ids}")
+            logger.info("Using RTX 3090 optimized training")
         else:
             logger.warning("No GPUs detected, training on CPU")
-        
-        # Train agents
-        results = train_multiple_agents(
-            asset_list=list(self.asset_data.keys()),
-            data_path=self.data_dir,
-            output_path=self.models_dir,
-            gpu_ids=gpu_ids,
-            timesteps=training_config.get("timesteps", 100000)
-        )
-        
+            use_native = False  # Fall back to stable-baselines3 on CPU
+
+        # Create optimized config file
+        import json
+        import tempfile
+        optimized_config = self.config.copy()
+        optimized_config["training"].update({
+            "batch_size": 2048,
+            "n_steps": 16384,
+            "n_epochs": 10,
+            "net_arch": [256, 256, 128],
+            "use_mixed_precision": True,
+            "gradient_accumulation_steps": 4
+        })
+
+        # Save temporary config
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+            json.dump(optimized_config, f, indent=2)
+            temp_config_path = f.name
+
+        # Train agents with optimized implementation
+        results = {}
+        trained_agents = {}
+
+        try:
+            for symbol in self.asset_data.keys():
+                logger.info(f"Training optimized agent for {symbol}")
+
+                if use_native:
+                    # Use native PyTorch for maximum GPU utilization
+                    result = train_single_asset_native(
+                        symbol=symbol,
+                        data_path=self.data_dir,
+                        config_path=temp_config_path,
+                        output_path=self.models_dir,
+                        timesteps=timesteps
+                    )
+                    model_path = f"{self.models_dir}/native_ppo_{symbol}.pt"
+                else:
+                    # Use optimized stable-baselines3
+                    result = train_single_asset_optimized(
+                        symbol=symbol,
+                        data_path=self.data_dir,
+                        config_path=temp_config_path,
+                        output_path=self.models_dir,
+                        timesteps=timesteps
+                    )
+                    model_path = f"{self.models_dir}/ppo_{symbol}.zip"
+
+                results[symbol] = result
+
+                if result.get("success", False):
+                    trained_agents[symbol] = model_path
+                    logger.info(f"✅ {symbol} training completed in {result.get('duration', 0):.2f}s")
+                else:
+                    logger.error(f"❌ {symbol} training failed: {result.get('error', 'Unknown error')}")
+
+        finally:
+            # Clean up temporary config file
+            import os
+            try:
+                os.unlink(temp_config_path)
+            except:
+                pass
+
         # Record which agents were trained successfully
-        self.trained_agents = {
-            symbol: f"{self.models_dir}/ppo_{symbol}.zip" 
-            for symbol, result in results.items() 
-            if result.get("success", False)
-        }
-        
-        logger.info(f"Successfully trained {len(self.trained_agents)} agents")
+        self.trained_agents = trained_agents
+
+        # Log summary
+        successful_count = len(trained_agents)
+        total_time = sum(r.get('duration', 0) for r in results.values())
+
+        logger.info(f"RTX 3090 optimized training completed:")
+        logger.info(f"✅ Successfully trained: {successful_count}/{len(self.asset_data)} agents")
+        logger.info(f"⏱️  Total training time: {total_time:.2f} seconds")
+        logger.info(f"🚀 Using {'Native PyTorch' if use_native else 'Optimized Stable-Baselines3'}")
+
         return self.trained_agents
-    
+
+    def generate_trading_signals(self) -> Dict:
+        """Generate real-time trading signals from trained models"""
+        logger.info("Generating AI trading signals")
+
+        if not self.trained_agents:
+            logger.error("No trained agents available, cannot generate signals")
+            return {}
+
+        # Get configuration
+        training_config = self.config.get("training", {})
+        portfolio_balance = training_config.get("initial_balance", 10000.0)
+
+        # Create signal generator
+        signal_generator = TradingSignalGenerator(
+            models_dir=self.models_dir,
+            data_dir=self.data_dir,
+            portfolio_balance=portfolio_balance
+        )
+
+        # Generate signals for all trained assets
+        asset_list = list(self.trained_agents.keys())
+        signals = signal_generator.generate_trading_signals(asset_list)
+
+        # Save signals
+        output_path = os.path.join(self.output_dir, "trading_signals.json")
+        signal_generator.save_signals(signals, output_path)
+
+        # Print summary
+        signal_generator.print_signals_summary(signals)
+
+        logger.info(f"Generated trading signals for {len(asset_list)} assets")
+        logger.info(f"Signals saved to {output_path}")
+
+        return signals
+
     def create_portfolio_allocator(self) -> PortfolioAllocator:
         """Create portfolio allocator"""
         logger.info("Creating portfolio allocator")
@@ -423,25 +525,28 @@ class TradingSystem:
     def run_full_pipeline(self):
         """Run the full trading system pipeline"""
         logger.info("Starting full trading system pipeline")
-        
+
         # Select assets
         self.select_assets()
-        
+
         # Load data
         self.load_data()
-        
+
         # Train agents
         self.train_agents()
-        
+
+        # Generate trading signals
+        self.generate_trading_signals()
+
         # Run backtest
         backtest_results = self.run_backtest()
-        
+
         # Allocate portfolio
         self.allocate_portfolio()
-        
+
         # Generate report
         self.generate_report(backtest_results)
-        
+
         logger.info("Trading system pipeline completed")
 
 def main():
@@ -455,6 +560,7 @@ def main():
     parser.add_argument("--pipeline", action="store_true", help="Run the full pipeline")
     parser.add_argument("--select-assets", action="store_true", help="Run asset selection only")
     parser.add_argument("--train", action="store_true", help="Run agent training only")
+    parser.add_argument("--signals", action="store_true", help="Generate trading signals only")
     parser.add_argument("--backtest", action="store_true", help="Run backtest only")
     parser.add_argument("--allocate", action="store_true", help="Run portfolio allocation only")
     
@@ -482,10 +588,13 @@ def main():
             
         if args.train:
             system.train_agents()
-            
+
+        if args.signals:
+            system.generate_trading_signals()
+
         if args.backtest:
             system.run_backtest()
-            
+
         if args.allocate:
             system.allocate_portfolio()
 

@@ -59,8 +59,17 @@ class AssetUniverseSelector:
     def load_market_data(self) -> Dict[str, pd.DataFrame]:
         """Load market data from CSV files in the data directory"""
         logger.info(f"Loading market data from {self.data_dir}")
-        
-        csv_files = glob.glob(os.path.join(self.data_dir, '*_1h.csv'))
+
+        # Look for CSV files in multiple locations
+        csv_files = []
+        # First try the main data directory
+        csv_files.extend(glob.glob(os.path.join(self.data_dir, '*_1h.csv')))
+        # Then try the 1h subdirectory
+        csv_files.extend(glob.glob(os.path.join(self.data_dir, '1h', '*_1h.csv')))
+        # Also try files without _1h suffix in main directory
+        csv_files.extend(glob.glob(os.path.join(self.data_dir, '*.csv')))
+
+        logger.info(f"Found {len(csv_files)} CSV files")
         asset_data = {}
         
         for file_path in csv_files:
@@ -245,17 +254,31 @@ def load_and_filter_data(
         Dictionary mapping symbols to DataFrames
     """
     if symbols is None:
-        # Load all available assets
-        csv_files = glob.glob(os.path.join(data_dir, '*_1h.csv'))
-        symbols = [os.path.splitext(os.path.basename(file))[0].upper().replace('_1H', '') 
+        # Load all available assets from multiple locations
+        csv_files = []
+        csv_files.extend(glob.glob(os.path.join(data_dir, '*_1h.csv')))
+        csv_files.extend(glob.glob(os.path.join(data_dir, '1h', '*_1h.csv')))
+        symbols = [os.path.splitext(os.path.basename(file))[0].upper().replace('_1H', '')
                   for file in csv_files]
-    
+
     asset_data = {}
-    
+
     for symbol in symbols:
-        file_path = os.path.join(data_dir, f"{symbol.lower()}_1h.csv")
-        if not os.path.exists(file_path):
-            logger.warning(f"Data file for {symbol} not found at {file_path}")
+        # Try multiple file path patterns
+        file_paths = [
+            os.path.join(data_dir, f"{symbol.lower()}_1h.csv"),
+            os.path.join(data_dir, '1h', f"{symbol.upper()}_1h.csv"),
+            os.path.join(data_dir, f"{symbol.upper()}.csv")
+        ]
+
+        file_path = None
+        for path in file_paths:
+            if os.path.exists(path):
+                file_path = path
+                break
+
+        if file_path is None:
+            logger.warning(f"Data file for {symbol} not found in any of: {file_paths}")
             continue
             
         try:
