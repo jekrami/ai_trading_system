@@ -1,0 +1,15 @@
+{
+  "symbol": "DOT_USD",
+  "train_date": "2025-09-04T21:05:17.823549",
+  "model_path": "models/native_ppo_DOT_USD.pt",
+  "training_config": {
+    "timesteps": 10000,
+    "batch_size": 2048,
+    "learning_rate": 0.0003,
+    "net_arch": [
+      256,
+      256,
+      128
+    ]
+  }
+}

@@ -74,6 +74,7 @@ class TradingSystem:
         self.asset_data = {}
         self.trained_agents = {}
         self.portfolio_allocator = None
+        self.force_retrain = False  # Flag to force retraining
     
     def _load_config(self) -> dict:
         """Load configuration from file"""
@@ -182,6 +183,92 @@ class TradingSystem:
         logger.info(f"Loaded data for {len(self.asset_data)} assets")
         return self.asset_data
     
+    def _should_retrain_agent(self, symbol: str, training_config: Dict) -> bool:
+        """Check if an agent needs retraining based on existing models and data changes."""
+
+        # Check for existing models
+        native_model_path = os.path.join(self.models_dir, f"native_ppo_{symbol}.pt")
+        sb3_model_path = os.path.join(self.models_dir, f"ppo_{symbol}.zip")
+        metadata_path = os.path.join(self.models_dir, f"ppo_{symbol}_metadata.json")
+
+        model_exists = os.path.exists(native_model_path) or os.path.exists(sb3_model_path)
+
+        if not model_exists:
+            logger.info(f"No existing model found for {symbol}, training required")
+            return True
+
+        # Check force retrain flag
+        if getattr(self, 'force_retrain', False):
+            logger.info(f"Force retrain enabled for {symbol}")
+            return True
+
+        # Check if metadata exists and is recent
+        if os.path.exists(metadata_path):
+            try:
+                with open(metadata_path, 'r') as f:
+                    metadata = json.load(f)
+
+                # Check if training config has changed
+                stored_config = metadata.get("training_config", {})
+                current_key_config = {
+                    "timesteps": training_config.get("timesteps", 100000),
+                    "batch_size": training_config.get("batch_size", 64),
+                    "learning_rate": training_config.get("learning_rate", 3e-4),
+                    "net_arch": training_config.get("net_arch", [64, 64])
+                }
+
+                if stored_config != current_key_config:
+                    logger.info(f"Training configuration changed for {symbol}, retraining required")
+                    return True
+
+                # Check data freshness (if data file is newer than model)
+                data_files = [
+                    os.path.join(self.data_dir, f"{symbol.lower()}_1h.csv"),
+                    os.path.join(self.data_dir, '1h', f"{symbol.upper()}_1h.csv"),
+                    os.path.join(self.data_dir, f"{symbol.upper()}.csv")
+                ]
+
+                model_time = os.path.getmtime(native_model_path if os.path.exists(native_model_path) else sb3_model_path)
+
+                for data_file in data_files:
+                    if os.path.exists(data_file):
+                        data_time = os.path.getmtime(data_file)
+                        if data_time > model_time:
+                            logger.info(f"Data file {data_file} is newer than model for {symbol}, retraining required")
+                            return True
+                        break
+
+                logger.info(f"Existing model for {symbol} is up-to-date, skipping training")
+                return False
+
+            except Exception as e:
+                logger.warning(f"Error reading metadata for {symbol}: {str(e)}, will retrain")
+                return True
+
+        # If no metadata, assume we need to retrain
+        logger.info(f"No metadata found for {symbol}, training required")
+        return True
+
+    def _save_training_metadata(self, symbol: str, training_config: Dict, model_path: str):
+        """Save training metadata for future reference."""
+        metadata = {
+            "symbol": symbol,
+            "train_date": datetime.now().isoformat(),
+            "model_path": model_path,
+            "training_config": {
+                "timesteps": training_config.get("timesteps", 100000),
+                "batch_size": training_config.get("batch_size", 64),
+                "learning_rate": training_config.get("learning_rate", 3e-4),
+                "net_arch": training_config.get("net_arch", [64, 64])
+            }
+        }
+
+        metadata_path = os.path.join(self.models_dir, f"ppo_{symbol}_metadata.json")
+        with open(metadata_path, 'w') as f:
+            json.dump(metadata, f, indent=2)
+
+        logger.info(f"Training metadata saved for {symbol}")
+
     def train_agents(self) -> dict:
         """Train RL agents for selected assets using RTX 3090 optimized training"""
         logger.info("Starting RTX 3090 optimized agent training")
@@ -230,7 +317,26 @@ class TradingSystem:
 
         try:
             for symbol in self.asset_data.keys():
-                logger.info(f"Training optimized agent for {symbol}")
+                # Check if retraining is necessary
+                if not self._should_retrain_agent(symbol, training_config):
+                    # Use existing model
+                    if use_native:
+                        model_path = f"{self.models_dir}/native_ppo_{symbol}.pt"
+                    else:
+                        model_path = f"{self.models_dir}/ppo_{symbol}.zip"
+
+                    if os.path.exists(model_path):
+                        trained_agents[symbol] = model_path
+                        results[symbol] = {
+                            "success": True,
+                            "duration": 0.0,
+                            "skipped": True,
+                            "reason": "Model up-to-date"
+                        }
+                        logger.info(f"⏭️ {symbol} training skipped - using existing model")
+                        continue
+
+                logger.info(f"🚀 Training optimized agent for {symbol}")
 
                 if use_native:
                     # Use native PyTorch for maximum GPU utilization
@@ -257,6 +363,8 @@ class TradingSystem:
 
                 if result.get("success", False):
                     trained_agents[symbol] = model_path
+                    # Save metadata for future reference
+                    self._save_training_metadata(symbol, training_config, model_path)
                     logger.info(f"✅ {symbol} training completed in {result.get('duration', 0):.2f}s")
                 else:
                     logger.error(f"❌ {symbol} training failed: {result.get('error', 'Unknown error')}")
@@ -704,6 +812,7 @@ def main():
     parser.add_argument("--pipeline", action="store_true", help="Run the full pipeline")
     parser.add_argument("--select-assets", action="store_true", help="Run asset selection only")
     parser.add_argument("--train", action="store_true", help="Run agent training only")
+    parser.add_argument("--force-retrain", action="store_true", help="Force retraining even if models exist")
     parser.add_argument("--signals", action="store_true", help="Generate trading signals only")
     parser.add_argument("--backtest", action="store_true", help="Run backtest only")
     parser.add_argument("--allocate", action="store_true", help="Run portfolio allocation only")
@@ -718,6 +827,11 @@ def main():
         models_dir=args.models_dir,
         logs_dir=args.logs_dir
     )
+
+    # Set force retrain flag if specified
+    if hasattr(args, 'force_retrain') and args.force_retrain:
+        system.force_retrain = True
+        logger.info("Force retraining enabled - will retrain all models")
     
     # Execute selected actions
     if args.pipeline:
