@@ -2,7 +2,7 @@
     "system": {
         "name": "AI Trading System",
         "version": "1.0.0",
-        "mode": "pipeline",
+        "mode": "backtest",
         "start_date": "2022-05-17",
         "end_date": "2025-05-17"
     },

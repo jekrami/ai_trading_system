@@ -128,53 +128,157 @@ The system works with any cryptocurrency pairs like:
 
 ## Configuration
 
-The system uses a JSON configuration file (`config.json`) that can be customized:
+The system uses a JSON configuration file (`config.json`) that can be customized. **For detailed explanations of all options, see [CONFIG_GUIDE.md](CONFIG_GUIDE.md)**.
 
-### 🚀 RTX 3090 Optimized Configuration:
+### 🎓 Quick Start Configurations
 
+#### 🟢 **Beginner Configuration** (Safe & Fast):
 ```json
 {
   "system": {
-    "name": "AI Trading System",
-    "version": "1.0.0",
+    "name": "My First AI Trading System",
     "mode": "backtest",
-    "start_date": "2024-05-17",
-    "end_date": "2025-05-17"
+    "start_date": "2024-01-01",
+    "end_date": "2025-01-01"
   },
   "asset_selection": {
-    "max_assets": 5,
-    "lookback_days": 30,
-    "min_volume_usd": 1000000,
-    "min_market_cap_usd": 10000000
+    "max_assets": 3,              // Start with just 3 assets
+    "min_volume_usd": 5000000     // Only major cryptocurrencies
   },
   "training": {
-    "window_size": 24,
-    "initial_balance": 10000.0,
-    "transaction_fee": 0.001,
-    "timesteps": 100000,
-    "batch_size": 2048,              // 🚀 RTX 3090 optimized
-    "n_steps": 16384,                // 🚀 Large experience buffer
-    "n_epochs": 10,                  // 🚀 Optimized epochs
-    "learning_rate": 0.0003,
-    "net_arch": [256, 256, 128],     // 🚀 Larger neural network
-    "use_mixed_precision": true,     // 🚀 RTX 3090 acceleration
-    "gradient_accumulation_steps": 4, // 🚀 Better gradients
-    "use_native_pytorch": true       // 🚀 Maximum GPU utilization
+    "timesteps": 50000,           // Faster training (~5 min/asset)
+    "initial_balance": 10000.0,   // $10K virtual portfolio
+    "batch_size": 2048,           // RTX 3090 optimized
+    "use_native_pytorch": true    // Maximum speed
   },
   "portfolio": {
-    "allocation_method": "risk_parity",
-    "max_allocation": 0.4,
-    "min_allocation": 0.05,
-    "risk_aversion": 1.2
+    "allocation_method": "equal", // Simple equal allocation
+    "stop_loss": 0.15            // Conservative 15% stop loss
   }
 }
 ```
 
-### Key RTX 3090 Optimizations:
-- **batch_size: 2048** - 32x larger than standard (64)
-- **net_arch: [256, 256, 128]** - 4x larger network
-- **use_native_pytorch: true** - Maximum GPU utilization
-- **use_mixed_precision: true** - FP16/FP32 for speed
+#### 🟡 **Intermediate Configuration** (Balanced):
+```json
+{
+  "asset_selection": {
+    "max_assets": 5,              // More diversification
+    "min_volume_usd": 1000000
+  },
+  "training": {
+    "timesteps": 100000,          // Standard training (~10 min/asset)
+    "batch_size": 2048,           // RTX 3090 optimized
+    "n_steps": 16384,
+    "net_arch": [256, 256, 128],  // Larger neural network
+    "use_mixed_precision": true   // RTX 3090 acceleration
+  },
+  "portfolio": {
+    "allocation_method": "risk_parity", // Risk-balanced allocation
+    "max_allocation": 0.4,              // Max 40% per asset
+    "stop_loss": 0.1,                   // 10% stop loss
+    "take_profit": 0.2                  // 20% take profit
+  }
+}
+```
+
+#### 🔴 **Advanced Configuration** (Maximum Performance):
+```json
+{
+  "asset_selection": {
+    "max_assets": 10,             // Full diversification
+    "correlation_threshold": 0.6  // Lower correlation requirement
+  },
+  "training": {
+    "timesteps": 500000,          // Extensive training (~50 min/asset)
+    "batch_size": 4096,           // Larger batches (if memory allows)
+    "n_epochs": 20,               // More training epochs
+    "net_arch": [512, 512, 256],  // Largest network
+    "use_native_pytorch": true    // Maximum GPU utilization
+  },
+  "portfolio": {
+    "allocation_method": "markowitz",   // Advanced optimization
+    "risk_aversion": 0.8,               // Higher risk tolerance
+    "rebalance_frequency": "daily"      // More frequent rebalancing
+  }
+}
+```
+
+### 🚀 **RTX 3090 Specific Optimizations:**
+
+| Setting | Standard | RTX 3090 Optimized | Speedup |
+|---------|----------|-------------------|---------|
+| `batch_size` | 64 | **2048** | 32x larger |
+| `n_steps` | 2048 | **16384** | 8x larger |
+| `net_arch` | [64, 64] | **[256, 256, 128]** | 4x larger |
+| `use_mixed_precision` | false | **true** | ~2x faster |
+| `use_native_pytorch` | false | **true** | ~3x faster |
+
+### 📚 **Configuration Options Reference:**
+
+For complete details on every configuration option, see **[CONFIG_GUIDE.md](CONFIG_GUIDE.md)** which includes:
+
+- 📋 **Complete option reference** with explanations
+- 🎯 **Beginner-friendly descriptions** for each setting
+- ⚡ **Performance vs quality trade-offs**
+- 🔧 **Troubleshooting common issues**
+- 💡 **Best practices and recommendations**
+- ⚠️ **Common mistakes to avoid**
+
+### 🔧 **Configuration Examples by Use Case:**
+
+#### 💰 **Conservative Trading** (Low Risk):
+```json
+{
+  "training": { "timesteps": 100000, "initial_balance": 10000 },
+  "asset_selection": { "max_assets": 3, "min_volume_usd": 10000000 },
+  "portfolio": { "allocation_method": "equal", "stop_loss": 0.15, "max_allocation": 0.33 }
+}
+```
+
+#### ⚡ **Aggressive Trading** (High Risk/Reward):
+```json
+{
+  "training": { "timesteps": 200000, "initial_balance": 50000 },
+  "asset_selection": { "max_assets": 8, "min_volume_usd": 1000000 },
+  "portfolio": { "allocation_method": "markowitz", "stop_loss": 0.08, "take_profit": 0.25 }
+}
+```
+
+#### 🧪 **Research/Testing** (Fast Iterations):
+```json
+{
+  "training": { "timesteps": 25000, "initial_balance": 10000 },
+  "asset_selection": { "max_assets": 2, "min_volume_usd": 5000000 },
+  "portfolio": { "allocation_method": "equal", "stop_loss": 0.2 }
+}
+```
+
+### ✅ **Configuration Validation:**
+
+Before running the system, validate your configuration:
+
+```bash
+# Check your config.json for issues
+python scripts/validate_config.py
+
+# Check a specific config file
+python scripts/validate_config.py --config my_config.json
+```
+
+The validator will check for:
+- ❌ **Critical errors** that prevent the system from running
+- ⚠️ **Warnings** about suboptimal settings
+- 💡 **Recommendations** for beginners
+- 🚀 **RTX 3090 optimization detection**
+
+### ⚠️ **Important Configuration Notes:**
+
+- **Always start with beginner settings** before advancing
+- **Test with small timesteps** (25K-50K) before full training
+- **Use backtest mode** until you're confident in your strategy
+- **Never use live trading** without extensive backtesting
+- **Keep transaction_fee realistic** (0.001 = 0.1% is typical)
+- **Validate your config** before running: `python scripts/validate_config.py`
 
 ## Usage
 
@@ -428,9 +532,33 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📚 Additional Resources
 
-- **RTX 3090 Optimization Guide**: `RTX3090_OPTIMIZATION_GUIDE.md`
-- **GPU Benchmark Results**: Run `python scripts/gpu_benchmark.py --benchmark`
-- **Training Logs**: Check `logs/` directory for detailed training information
+- **📖 Complete Configuration Guide**: [CONFIG_GUIDE.md](CONFIG_GUIDE.md) - Detailed explanations of all options
+- **🚀 RTX 3090 Optimization Guide**: [RTX3090_OPTIMIZATION_GUIDE.md](RTX3090_OPTIMIZATION_GUIDE.md) - Performance optimizations
+- **✅ Configuration Validator**: `python scripts/validate_config.py` - Check your settings
+- **🔧 GPU Benchmark Tool**: `python scripts/gpu_benchmark.py --benchmark` - Test your hardware
+- **📊 Training Logs**: Check `logs/` directory for detailed training information
+
+## 🎯 Quick Reference
+
+### Essential Commands:
+```bash
+# Validate your configuration
+python scripts/validate_config.py
+
+# Run the complete system
+python run_system.py --pipeline
+
+# Generate trading signals only
+python run_system.py --signals
+
+# Train models only
+python run_system.py --train
+```
+
+### Configuration Files:
+- **`config.json`** - Main configuration (see [CONFIG_GUIDE.md](CONFIG_GUIDE.md))
+- **`CONFIG_GUIDE.md`** - Complete configuration documentation
+- **`RTX3090_OPTIMIZATION_GUIDE.md`** - GPU optimization guide
 
 ## Acknowledgments
 
